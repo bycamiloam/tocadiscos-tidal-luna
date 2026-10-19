@@ -1,0 +1,9 @@
+{
+	"name": "@tocadiscos/tocadiscos",
+	"description": "Convierte la carátula de Now Playing en un tocadiscos con giro, inercia y brazo que avanza",
+	"author": {
+		"name": "tocadiscos-luna"
+	},
+	"main": "./src/index.ts",
+	"type": "module"
+}

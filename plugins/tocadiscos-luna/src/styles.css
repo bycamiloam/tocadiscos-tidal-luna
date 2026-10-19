@@ -1,0 +1,93 @@
+/* Chasis negro: bisel, veta cepillada, botón de encendido con LED, perilla y base del brazo */
+[class*="_artworkTilt_"] {
+  --tt-led: #3a0a0a;
+  --tt-glow: transparent;
+  position: relative !important;
+  isolation: isolate;
+  overflow: visible !important;
+  border: 0 !important;
+  border-radius: 12px !important;
+  background:
+    radial-gradient(circle closest-side, var(--tt-glow), transparent) left 0% bottom 0% / 17% 17% no-repeat,
+    radial-gradient(circle closest-side, #3c3c3f 0 36%, #151515 38% 44%, var(--tt-led) 46% 56%, #0a0a0a 58% 64%, #9c9c9c 66% 72%, #000 74% 80%, transparent 82%) left 3% bottom 3% / 9% 9% no-repeat,
+    radial-gradient(circle closest-side, #1c1c1c 0 38%, #8a8a8a 40% 48%, #1a1a1a 50% 70%, #5a5a5a 72% 77%, #000 79% 90%, transparent 92%) right 4% bottom 4% / 8% 8% no-repeat,
+    radial-gradient(circle closest-side, #f0f0f0 0 8%, #9a9a9a 12%, #333 30%, #111 40%, #7a7a7a 48% 56%, #111 60% 76%, #5a5a5a 80%, transparent 84%) right 3% top 5% / 14% 14% no-repeat,
+    linear-gradient(115deg, rgba(255,255,255,.07) 0 22%, transparent 22.2%),
+    repeating-linear-gradient(90deg, rgba(255,255,255,.028) 0 1px, transparent 1px 3px),
+    linear-gradient(145deg, #2d2d30, #0b0b0c 60%, #181819) !important;
+  box-shadow:
+    0 18px 40px rgba(0,0,0,.72),
+    inset 0 1px 0 1px rgba(255,255,255,.18),
+    inset 0 0 0 3px #050505,
+    inset 0 0 22px rgba(0,0,0,.8) !important;
+}
+body:has(button[data-test="pause"]) [class*="_artworkTilt_"] {
+  --tt-led: #ff3b30;
+  --tt-glow: rgba(255,59,48,.5);
+}
+
+/* Plato: aro estroboscópico, fieltro oscuro y eje central */
+[class*="_artworkTilt_"]::before {
+  content: "";
+  position: absolute;
+  inset: 4%;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle closest-side, #f2f2f2 0 40%, #8a8a8a 55%, #222 72%, transparent 74%) center / 4.5% 4.5% no-repeat,
+    radial-gradient(circle closest-side, #0e0e0e 0 89%, transparent 89.5%),
+    repeating-conic-gradient(#9a9a9a 0 .8deg, #1a1a1a .8deg 3deg);
+  box-shadow: 0 0 0 2px #000, 0 6px 14px rgba(0,0,0,.65);
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Brazo: contrapeso, tubo plateado y cabezal. Reposa fuera del disco y baja al sonar */
+[class*="_artworkTilt_"]::after {
+  content: "";
+  position: absolute;
+  left: calc(90% - 10px);
+  top: 3%;
+  width: 20px;
+  height: 64%;
+  background:
+    linear-gradient(#262626, #050505) bottom center / 13px 8% no-repeat,
+    linear-gradient(90deg, #8a8a8a, #f4f4f4 45%, #777) center / 5px 100% no-repeat,
+    linear-gradient(90deg, #0c0c0c, #5b5b5b 40%, #0c0c0c) top center / 20px 9% no-repeat;
+  filter: drop-shadow(3px 5px 4px rgba(0,0,0,.65));
+  transform-origin: 50% 14%;
+  transform: rotate(-4deg);
+  transition: transform 1.4s cubic-bezier(.4,0,.2,1);
+  z-index: 5;
+  pointer-events: none;
+}
+body:has(button[data-test="pause"]) [class*="_artworkTilt_"]::after {
+  transform: rotate(var(--tt-arm, 8deg));
+}
+
+/* El disco: la carátula real, redonda y con hueco. La velocidad la controla el script */
+img[data-test="now-playing-artwork"] {
+  position: relative !important;
+  z-index: 1;
+  border-radius: 50% !important;
+  object-fit: cover !important;
+  filter: brightness(.9) contrast(1.12) saturate(1.05);
+  box-shadow: 0 0 0 3px #000, 0 0 0 6px #121212, 0 8px 16px rgba(0,0,0,.65) !important;
+  animation: none !important;
+  transform: scale(.82);
+  -webkit-mask: radial-gradient(circle, transparent 4%, #000 5%);
+          mask: radial-gradient(circle, transparent 4%, #000 5%);
+}
+
+/* Reflejos y surcos del vinilo (reutiliza el div de brillo de TIDAL, fijo como la luz real) */
+[class*="_glare_"] {
+  opacity: 1 !important;
+  mix-blend-mode: screen;
+  background:
+    conic-gradient(from 25deg at 50% 50%, transparent 0 6%, rgba(255,255,255,.20) 13%, transparent 21%, transparent 50%, rgba(255,255,255,.16) 63%, transparent 71%) ,
+    repeating-radial-gradient(circle closest-side, rgba(255,255,255,.05) 0 1px, transparent 1px 3px) !important;
+  clip-path: circle(41% at 50% 50%) !important;
+  -webkit-mask: radial-gradient(circle, transparent 4%, #000 5%);
+          mask: radial-gradient(circle, transparent 4%, #000 5%);
+  z-index: 2;
+  pointer-events: none;
+}
